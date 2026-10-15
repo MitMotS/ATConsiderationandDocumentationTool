@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Assistive Technology Consideration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1d2733;--mu:#4f5d6b;--ac:#1a6682;--ac2:#e1f0f5;--bd:#d5dbe2;--ib:#66727f;--bt:#fff;--fc:#0b57d0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181d;--card:#1d242c;--tx:#e8edf2;--mu:#a3b0bd;--ac:#6cc0dc;--ac2:#1f3340;--bd:#33404d;--ib:#8a98a6;--bt:#0b1a22;--fc:#8ab4f8}}
+:root[data-theme="dark"]{--bg:#14181d;--card:#1d242c;--tx:#e8edf2;--mu:#a3b0bd;--ac:#6cc0dc;--ac2:#1f3340;--bd:#33404d;--ib:#8a98a6;--bt:#0b1a22;--fc:#8ab4f8}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif}
+:focus-visible{outline:3px solid var(--fc);outline-offset:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:8px;top:-60px;background:var(--card);color:var(--tx);border:2px solid var(--fc);padding:8px 12px;border-radius:6px;z-index:9}.skip:focus{top:8px}
+main{display:block;max-width:980px;margin:0 auto;padding:20px 16px 24px}main:focus{outline:none}h1{font-size:1.5rem;margin:0 0 6px}h1:focus{outline:none}h2{font-size:1.15rem;margin:22px 0 8px}
+.sub{color:var(--mu);margin:0 0 16px}.def{background:var(--ac2);border-left:4px solid var(--ac);border-radius:6px;padding:10px 14px;margin:0 0 12px}
+.alert{background:#fff4d6;color:#4a3500;border:1px solid #8a6a00;border-left:6px solid #8a6a00;border-radius:8px;padding:11px 14px;margin-top:18px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+label.f{display:block;font-size:.9rem;color:var(--mu)}
+input[type=text],input[type=date],textarea{width:100%;font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ib);border-radius:6px;padding:7px}
+::placeholder{color:var(--mu);opacity:1}textarea{min-height:64px;resize:vertical}
+.area{background:var(--card);border:1px solid var(--bd);border-radius:10px;margin-bottom:6px}
+.ah{display:flex;gap:10px;align-items:center;padding:6px 12px}.ah .n{color:var(--mu);width:22px}
+.tg{flex:1;text-align:left;background:none;border:0;color:var(--tx);font:inherit;font-weight:600;padding:8px 0;cursor:pointer}
+.cnt{font-size:.8rem;background:var(--ac2);color:var(--ac);border-radius:20px;padding:1px 9px}.cnt:empty{display:none}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--ac);flex:none}
+.panel{display:none;border-top:1px solid var(--bd);padding:8px 12px 12px;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:6px}
+.area.open .panel{display:grid}.area.open{border-color:var(--ac)}
+.t{display:flex;gap:8px;align-items:flex-start;padding:7px 9px;border:1px solid var(--bd);border-radius:8px;cursor:pointer}
+.t:has(input:checked){background:var(--ac2);border-color:var(--ac)}.t span{font-weight:600;min-width:130px;max-width:150px}.t small{color:var(--mu);flex:1;font-size:.875rem}
+@media(max-width:560px){.panel{grid-template-columns:1fr}.t{flex-wrap:wrap}}
+button{font:inherit}.b{border-radius:8px;border:2px solid var(--ac);background:var(--ac);color:var(--bt);padding:9px 18px;cursor:pointer;font-weight:600}
+.b.s{background:transparent;color:var(--ac)}.bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.tool h3{margin:0 0 2px;font-size:1.05rem}.tool .ar{color:var(--mu);font-size:.9rem;margin-bottom:8px}.tool .grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.chk{display:flex;gap:8px;align-items:center;margin:6px 0}.note{color:var(--mu);font-size:.95rem}
+footer{max-width:980px;margin:0 auto;padding:8px 16px 24px;text-align:center;font-size:.72rem;color:var(--mu)}
+.isat{border:3px solid var(--tx);border-radius:8px;padding:20px 16px;text-align:center;background:var(--card);margin:0 0 16px}.isat h2{font-size:2rem;margin:0 0 14px}.isat ol{list-style:none;margin:0;padding:0}.isat .q{font-weight:700;font-size:1.1rem;margin:0}.isat .a{margin:2px 0 14px;color:var(--mu)}.isat .a b{color:var(--ac)}.isat .final{font-weight:700;font-size:1.15rem;color:var(--ac);margin:0}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--bd);border-radius:8px;margin:8px 0;cursor:pointer}.opt:has(input:checked){background:var(--ac2);border-color:var(--ac)}.opt input{margin-top:3px}
+input[type=radio]{width:20px;height:20px;accent-color:var(--ac);flex:none}
+fieldset.grp{border:1px solid var(--bd);border-radius:8px;margin:12px 0;padding:6px 12px 10px;min-width:0}fieldset.grp legend{font-weight:700;font-size:.95rem;padding:0 6px}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:4px 14px}.gi label{display:flex;gap:8px;align-items:flex-start;font-size:.95rem;margin:3px 0;color:var(--tx);cursor:pointer}.gi label.f{display:block;cursor:default;color:var(--mu)}.gi .sp{margin:2px 0 4px 28px;width:calc(100% - 28px)}
+.proc{display:grid;grid-template-columns:1fr 130px;gap:8px;align-items:center;margin:6px 0}@media(max-width:560px){.proc{grid-template-columns:1fr}}
+</style></head><body>
+<a class="skip" href="#app">Skip to main content</a><div id="live" class="vh" role="status" aria-live="polite"></div>
+<main id="app" tabindex="-1"></main><footer>mtsabatino 2026</footer>
+<script>
+const CATS={
+"Communication":["Core-word communication board/system","Choice board","Low-tech communication book","Single-message voice-output device","Multi-message voice-output device","Tablet AAC app","Dedicated speech-generating device","Eye-gaze AAC system"],
+"Academic access":["Text-to-speech","Speech-to-text/dictation","Accessible digital options for print materials (e.g., Bookshare)","Accessible digital options for math support (e.g., Modmath, Kami, Equatio)","Word prediction","Graphic organizer","Digital note-taking","Calculator/accessible calculator","Manipulatives","Alternative keyboard","Switch computer access","Screen reader","OCR reading tool","Reading pen","Talking dictionary","Reading line guide","Large-print and/or reflowable text"],
+"Physical access (seating, mobility, safety)":["Wheelchair","Power wheelchair","Walker/gait trainer","Adaptive seating","Adaptive desk/table","Standing frame/stander","Transfer equipment","Adaptive door access","Grab bar","Transportation safety equipment (specialized seating, safety belts, etc.)"],
+"Organization (materials and time management)":["Visual schedule","Digital calendar","Task checklist(s)","Visual timer","Visual example(s) for organization of materials","Reminder/alarm system","Color-coded organization system","Executive-function/organization planning app"],
+"Sensory regulation":["Noise-reducing/canceling headphones","Fidget/manipulative(s)","Weighted materials (e.g., lap pad)","Resistance/movement band","Flexible/dynamic seating options","Visual distraction reduction","Lighting modification","Regulation app/visual breathing tool","Compression materials (e.g., vest)"],
+"Recreation/leisure":["Switch-adapted toy","Switch-accessible game controller","Adaptive keyboard/mouse for leisure","Eye-gaze leisure access","Adapted art tools","Adaptive musical instrument access","Adaptive sports equipment","Accessible game equipment/features (physical or digital materials)"],
+"Self-care/activities of daily living":["Adaptive eating utensils","Universal cuff","Plate guard/non-slip mat (e.g., Dycem)","Adaptive cup/straw system","Dressing aid","Elastic/alternative fasteners","Adaptive grooming tool","Visual schedule for ADL","Bathroom access equipment","Reacher/adaptive grabber"],
+"Vision":["Screen magnification","Refreshable Braille display","Braille notetaker","Braille embosser","Video magnifier","Handheld magnifier","Tactile graphics","Talking calculator/clock","Color/light identification"],
+"Hearing":["Remote microphone system","FM/DM classroom system","Sound-field amplification","Captioning","CART transcription","Live speech-to-text","Hearing loop","Visual alert system","Vibrating alert","Bluetooth/assistive listening"]};
+const AREAS=Object.keys(CATS),DB=[];AREAS.forEach((c,i)=>CATS[c].forEach(n=>DB.push({s:i+1,n,e:""})));
+const tools=a=>DB.filter(d=>d.s===a);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const GROUPS=[
+["when","When is it needed?",["All day, across all classes and activities","During homework and independent work","During reading tasks (decoding, comprehension, accessing text)","During small-group or one-on-one instruction","During writing tasks (notes, assignments, essays)","During communication with peers and staff","During math tasks","During transitions and unstructured times (lunch, recess, bus, specials)","During tests, quizzes, and state or district assessments",["Only in specific classes or subjects","specify"]]],
+["support","What support is needed?",["Initial setup and customization (settings, vocabulary, profiles)","Troubleshooting, repair, and a backup device or loaner","Direct training for the student on using the tool","Preparing materials in accessible formats (digital text, large print, audio)","Training and modeling for teachers and staff","Adult assistance during use (positioning, proofreading, scribing)","Prompting or cueing to use the tool (verbal, visual, or gestural)","Progress monitoring or data collection on how well the tool works","Daily readiness checks (charging, updates, supplies on hand)","Training and access for family at home"]],
+["access","How is it accessed?",["Touch or direct selection","Stylus or adapted pointing device","Keyboard and/or mouse (standard or adapted)","Mounted on a desk or wheelchair","Voice or speech input","Student keeps it at desk or in backpack and retrieves it independently","Switch access or scanning","Staff provides it at start of activity and returns it to a designated location","Eye gaze",["Built-in accessibility settings on a school-issued device","specify which"]]],
+["who","Who is responsible?",["Student","Occupational therapist","General education teacher(s)","AT specialist / SETT coordinator","Special education teacher / case manager","School IT or technology staff","Paraprofessional","Parent / guardian","Speech-language pathologist","Administrator or testing coordinator"]]];
+const DEC={1:"The team agrees AT is not necessary for the student.",2:"The student currently uses AT and the team agrees the tools are effective or sufficient for the student.",3:"The team needs more information to determine the student's AT needs and/or how AT may benefit the student."};
+const DEC3="The team must document any AT currently being used and initiate an AT consultation request or the SETT process.";
+const CK=["Implementation plan provided to responsible staff members","A.T. devices and services appropriately documented on the IEP"];
+let S,step,rt=null;const app=document.getElementById("app"),live=document.getElementById("live");
+const say=t=>{live.textContent="";setTimeout(()=>live.textContent=t,60)};
+function init(f){clearTimeout(rt);S={info:{},dec:"",sel:{},oth:{},cons:{},open:null,plan:{},custom:[],perc:"",rev:"",checks:[false,false],inits:["",""],notes:""};step=1;render(f)}
+function focusH1(){const h=app.querySelector("h1");if(h){h.tabIndex=-1;h.focus({preventScroll:true})}}
+function render(f){if(f)window.scrollTo(0,0);step==1?r1():r2();if(f)focusH1()}
+const pl=t=>S.plan[t]||(S.plan[t]={dn:t,g:{when:{c:{},s:{},o:""},support:{c:{},s:{},o:""},access:{c:{},s:{},o:""},who:{c:{},s:{},o:""}}});
+function onTool(e){const d=e.target.dataset;if(!d.t)return;const v=pl(d.t);
+if(d.f=="dn")v.dn=e.target.value;else if(d.g){const G=v.g[d.g];if(d.sp!==undefined)G.s[d.sp]=e.target.value;else if(d.o)G.o=e.target.value;else G.c[d.i]=e.target.checked}}
+app.addEventListener("input",onTool);app.addEventListener("change",onTool);
+const showAreas=()=>S.dec=="2"||S.dec=="3";
+const btnLbl=()=>S.dec=="1"?"Save plan as PDF":"Continue to AT plan &rarr;";
+function valid(){const m=document.getElementById("msg"),n=document.getElementById("name");m.textContent="";
+if(n){n.removeAttribute("aria-invalid");}
+if(!(S.info.student||"").trim()){m.textContent="Please enter the student's name.";if(n){n.setAttribute("aria-invalid","true");n.focus()}return false}
+if(!S.dec){m.textContent="Please select a team decision.";return false}
+if(S.dec!="1"&&!planTools().length){m.textContent="Please select at least one AT tool.";return false}return true}
+function r1(){
+const f=[["student","Student name (required)"],["dob","DOB"],["school","School"],["cm","Case Manager"],["date","Date"],["iep","IEP meeting date"]];
+app.innerHTML=`<h1>Assistive Technology Consideration</h1><p class="def">A tool is considered Assistive Technology when it is necessary for the student to access their curriculum and/or demonstrate learning because of their disability.</p>
+<section class="isat" aria-labelledby="isath"><h2 id="isath">Is it AT?</h2><ol>
+<li><p class="q">Is it a tool/device/equipment?</p><p class="a"><b>Yes</b> <span aria-hidden="true">&#10003; &rarr;</span></p></li>
+<li><p class="q">Does the student need it due to a disability-related barrier?</p><p class="a"><b>Yes</b> <span aria-hidden="true">&#10003; &rarr;</span></p></li>
+<li><p class="q">Is it required for access or showing what they know?</p><p class="a"><b>Yes</b> <span aria-hidden="true">&#10003; &rarr;</span></p></li></ol>
+<p class="final">AT: Document in the IEP</p></section>
+<p class="sub">Step 1 of 2: enter student information, record the team decision, then select the AT tools the student requires in each area. Use Other to add tools not listed.</p><h2>Student information</h2><div class="card grid">`+
+f.map(([k,l])=>`<div><label class="f">${l}<input type="${k=="date"||k=="dob"||k=="iep"?"date":"text"}" ${k=="student"?'id="name" required aria-required="true" aria-describedby="msg"':""} data-i="${k}" value="${esc(S.info[k]||"")}"></label></div>`).join("")+`</div>
+<h2 id="dh">Team decision</h2><div role="radiogroup" aria-labelledby="dh">`+[1,2,3].map(n=>`<label class="opt"><input type="radio" name="dec" value="${n}" ${S.dec==n?"checked":""}><span>${DEC[n]}${n==3?" <strong>"+DEC3+"</strong>":""}</span></label>`).join("")+`</div>
+<div id="areaSec" ${showAreas()?"":"hidden"}><h2>AT areas considered: check each tool the student requires</h2><div id="areas"></div></div>
+<div class="bar"><button type="button" class="b" id="next">${btnLbl()}</button></div><p class="note" id="msg" role="alert"></p>`;
+app.querySelectorAll("[data-i]").forEach(e=>e.oninput=()=>S.info[e.dataset.i]=e.value);
+app.querySelectorAll("[name=dec]").forEach(r=>r.onchange=()=>{S.dec=r.value;document.getElementById("areaSec").hidden=!showAreas();document.getElementById("next").innerHTML=btnLbl();document.getElementById("msg").textContent="";say(showAreas()?"Areas of support are now shown below.":"Areas of support are hidden. Select Save plan as PDF when ready.")});
+drawAreas();
+document.getElementById("next").onclick=()=>{if(!valid())return;if(S.dec=="1"){makePDF();return}step=2;render(true)}}
+const cnt=a=>(S.sel[a]?S.sel[a].size:0)+(S.oth[a]&&S.oth[a].on?1:0);
+function head(a,ann){const n=cnt(a),c=document.getElementById("k"+a),cb=document.querySelector(`[data-f="c${a}"]`);c.textContent=n?n+" selected":"";cb.checked=n>0||!!S.cons[a];if(ann)say(AREAS[a-1]+": "+n+" tool"+(n==1?"":"s")+" selected")}
+function drawAreas(){
+const box=document.getElementById("areas"),fid=document.activeElement&&document.activeElement.dataset?document.activeElement.dataset.f:null;
+box.innerHTML="";
+AREAS.forEach((nm,i)=>{const a=i+1,op=S.open==a,n=cnt(a),d=document.createElement("div");d.className="area"+(op?" open":"");
+d.innerHTML=`<div class="ah"><input type="checkbox" data-f="c${a}" aria-label="Area considered: ${esc(nm)}" ${n||S.cons[a]?"checked":""}><span class="n" aria-hidden="true">${a}.</span><button type="button" class="tg" data-f="t${a}" aria-expanded="${op}" aria-controls="p${a}">${esc(nm)}</button><span class="cnt" id="k${a}">${n?n+" selected":""}</span><span aria-hidden="true">${op?"&#9650;":"&#9660;"}</span></div><div class="panel" id="p${a}" role="group" aria-label="AT tools for ${esc(nm)}"></div>`;
+const cb=d.querySelector("input");
+d.querySelector(".tg").onclick=()=>{S.open=op?null:a;drawAreas()};
+cb.onchange=()=>{S.cons[a]=cb.checked;if(cb.checked){S.open=a}else{delete S.sel[a];delete S.oth[a];if(S.open==a)S.open=null}drawAreas()};
+if(op){const p=d.querySelector(".panel");tools(a).forEach((t,j)=>{const l=document.createElement("label");l.className="t";const on=S.sel[a]&&S.sel[a].has(t.n);
+l.innerHTML=`<input type="checkbox" data-f="x${a}-${j}" aria-labelledby="tn${a}-${j}" ${t.e?`aria-describedby="te${a}-${j}"`:""} ${on?"checked":""}><span id="tn${a}-${j}">${esc(t.n)}</span><small id="te${a}-${j}">${esc(t.e)}</small>`;
+l.querySelector("input").onchange=ev=>{S.sel[a]=S.sel[a]||new Set();ev.target.checked?S.sel[a].add(t.n):S.sel[a].delete(t.n);head(a,true)};p.appendChild(l)});
+const o=S.oth[a]||{on:false,text:""},ol=document.createElement("div");ol.className="t";
+ol.innerHTML=`<input type="checkbox" data-f="o${a}" aria-label="Include other tool" ${o.on?"checked":""}><span>Other</span><input type="text" data-f="ot${a}" aria-label="Other AT tool for ${esc(nm)}" placeholder="Type another AT tool" value="${esc(o.text)}" style="flex:1">`;
+const[oc,ot]=ol.querySelectorAll("input");
+oc.onchange=()=>{S.oth[a]={on:oc.checked,text:ot.value};head(a,true)};
+ot.oninput=()=>{const on=ot.value.trim()!=="";S.oth[a]={on,text:ot.value};oc.checked=on;head(a,false)};
+p.appendChild(ol)}
+box.appendChild(d)});
+if(fid){const e=box.querySelector(`[data-f="${fid}"]`);if(e)e.focus()}}
+function planTools(){if(!showAreas())return[];const m=new Map();Object.keys(S.sel).forEach(a=>{(S.sel[a]||new Set()).forEach(n=>{if(!m.has(n))m.set(n,{n,e:(DB.find(d=>d.n==n)||{}).e||"",a:[]});m.get(n).a.push(AREAS[a-1])})});
+Object.keys(S.oth).forEach(a=>{const o=S.oth[a],n=(o.text||"").trim();if(o.on&&n){if(!m.has(n))m.set(n,{n,e:"",a:[]});m.get(n).a.push(AREAS[a-1])}});
+S.custom.forEach(n=>m.set(n,{n,e:"",a:["Other"]}));return[...m.values()]}
+function groupsHTML(t,v){return GROUPS.map(([g,title,items])=>`<fieldset class="grp"><legend>${title}<span class="vh"> (tool: ${esc(t.n)})</span> (check all that apply)</legend><div class="items">`+items.map((it,j)=>{const lab=Array.isArray(it)?it[0]:it,sp=Array.isArray(it)?it[1]:null;
+return `<div class="gi"><label><input type="checkbox" data-t="${esc(t.n)}" data-g="${g}" data-i="${j}" ${v.g[g].c[j]?"checked":""}><span>${esc(lab)}</span></label>${sp?`<input class="sp" type="text" data-t="${esc(t.n)}" data-g="${g}" data-sp="${j}" aria-label="${esc(sp+" for: "+lab)}" placeholder="${esc(sp)}" value="${esc(v.g[g].s[j]||"")}">`:""}</div>`}).join("")+
+`<div class="gi" style="grid-column:1/-1"><label class="f">Other<input type="text" data-t="${esc(t.n)}" data-g="${g}" data-o="1" value="${esc(v.g[g].o)}"></label></div></div></fieldset>`).join("")}
+function r2(){
+const T=planTools();
+app.innerHTML=`<h1>Assistive Technology Plan</h1><p class="sub">Step 2 of 2: for each tool, check every box that applies. Use the Other boxes to add detail.${S.info.student?" Student: "+esc(S.info.student):""}</p><h2>AT tools</h2>`+
+T.map((t,i)=>{const v=pl(t.n);return `<div class="card tool" role="group" aria-labelledby="tt${i}"><h3 id="tt${i}">AT Tool #${i+1}: ${esc(t.n)}</h3><div class="ar">${t.e?esc(t.e)+" &middot; ":""}Supports: ${esc(t.a.join("; "))}</div>
+<label class="f">Device or tool name<input type="text" data-t="${esc(t.n)}" data-f="dn" value="${esc(v.dn)}"></label>${groupsHTML(t,v)}</div>`}).join("")+
+`<div class="card grid"><label class="f">Add another tool not listed<input type="text" id="oth"></label><div style="align-self:end"><button type="button" class="b s" id="addo">Add tool</button></div></div>
+<h2>Plan wrap-up</h2><div class="card"><label class="f">Student's perception of the technology<textarea id="perc">${esc(S.perc)}</textarea></label>
+<label class="f" style="margin-top:10px">Implementation review date<input type="date" id="rev" value="${esc(S.rev)}" style="max-width:220px"></label>
+<h3 id="pc" style="font-size:1rem;margin:14px 0 4px">Procedural checks (initial prior to filing/uploading)</h3><div role="group" aria-labelledby="pc">`+CK.map((c,i)=>`<div class="proc"><label class="chk" style="margin:0"><input type="checkbox" data-c="${i}" ${S.checks[i]?"checked":""}>${c}</label><input type="text" data-n="${i}" aria-label="Initials for: ${esc(c)}" placeholder="Initials" value="${esc(S.inits[i])}"></div>`).join("")+`</div>
+<label class="f" style="margin-top:10px">Notes / elaboration<textarea id="notes">${esc(S.notes)}</textarea></label></div>
+<h2>Plan revisions</h2><div class="card note">Consider using the SETT form to reconsider needs: when moving to a new classroom (new tasks, subjects or expectations may require new supports), when moving to a new school (ensure the IEP clearly states what is needed so the new school can procure devices), or when AT needs change (if the student no longer uses the identified AT, reconsider needs and update the IEP).</div>
+<div class="alert" role="alert"><strong>Save your plan before leaving.</strong> Nothing is stored; the form resets after you save the PDF. Select "Save plan as PDF" below and save the file, or your entries will be lost when this page is closed or refreshed.</div><div class="bar"><button type="button" class="b s" id="back">&larr; Back to areas</button><button type="button" class="b" id="pdf">Save plan as PDF</button></div><p class="note" id="msg" role="alert"></p>`;
+app.querySelectorAll("[data-c]").forEach(e=>e.onchange=()=>S.checks[e.dataset.c]=e.checked);
+app.querySelectorAll("[data-n]").forEach(e=>e.oninput=()=>S.inits[e.dataset.n]=e.value);
+perc.oninput=()=>S.perc=perc.value;rev.oninput=()=>S.rev=rev.value;notes.oninput=()=>S.notes=notes.value;
+addo.onclick=()=>{const v=oth.value.trim();if(v){S.custom.push(v);render(false);document.getElementById("oth").focus();say(v+" added to the plan")}};
+back.onclick=()=>{step=1;render(true)};pdf.onclick=()=>{if(valid())makePDF()}}
+const cl=s=>String(s||"").replace(/[\u2018\u2019]/g,"'").replace(/[\u201c\u201d]/g,'"').replace(/[\u2013\u2014]/g,"-").replace(/[^\x20-\x7e\u00a0-\u00ff]/g," ");
+const pe=s=>s.replace(/[\\()]/g,"\\$&");
+const fmt=d=>{if(!d)return"";const[y,m,x]=d.split("-");return `${m}/${x}/${y}`};
+/* Builds a tagged PDF: real table, list and heading structure, language and title set. */
+function buildPDF(title){
+const jd=new jspdf.jsPDF({unit:"pt",format:"letter"}),L=54,W=504,CW=150,PAD=5,LH=13,TOP=54,BOT=738,I=S.info,nm=(I.student||"").trim();
+const pages=[[]],nodes=[{tag:"Document",par:-1,k:[]}];let y=TOP;
+const nd=(tag,par,a)=>{nodes.push({tag,par,k:[],a});const i=nodes.length-1;nodes[par].k.push({n:i});return i};
+const newPg=()=>{pages.push([]);y=TOP};
+const put=o=>{o.pg=pages.length-1;pages[o.pg].push(o);if(o.node!=null)nodes[o.node].k.push({m:o});return o};
+const meas=(t,sz,b,wd)=>{jd.setFont("helvetica",b?"bold":"normal");jd.setFontSize(sz);return jd.splitTextToSize(cl(t)||" ",wd)};
+const H1=t=>{const n=nd("H1",0);meas(t,16,true,W).forEach(s=>{put({t:s,sz:16,b:true,x:L,y:y+14,node:n});y+=21});y+=8};
+const lab=t=>({t,b:true,fill:"l",th:true});
+function table(cols,rows){const tb=nd("Table",0);
+rows.forEach(r=>{const tr=nd("TR",tb);let x=L;
+const cs=r.cells.map((c,ci)=>{const wd=c.span?W:(ci==0?CW:W-CW),tag=(r.hdr||c.th)?"TH":"TD",bold=!!(c.b||r.hdr);
+const a=tag=="TH"?`/A<</O/Table/Scope/${r.hdr?"Column":"Row"}${c.span&&cols==2?"/ColSpan 2":""}>>`:"";
+const cn=nd(tag,tr,a),lines=[],add=(tx,node)=>meas(tx,10,bold,wd-2*PAD).forEach(s=>lines.push({t:s,node}));
+if(c.list){const ln=nd("L",cn);c.list.forEach(it=>{const li=nd("LI",ln),lb=nd("LBody",li);add("- "+it,lb)})}else add(c.t,nd("P",cn));
+const cell={x,wd,lines,fill:r.hdr?"h":c.fill,white:!!r.hdr,b:bold};x+=wd;return cell});
+const nl=Math.max(...cs.map(c=>c.lines.length)),full=nl*LH+2*PAD;
+if(r.hdr&&BOT-y<90)newPg();else if(full<=BOT-TOP&&y+full>BOT)newPg();
+let st=0;while(st<nl){let k=Math.floor((BOT-y-2*PAD)/LH);if(k<1){newPg();continue}k=Math.min(k,nl-st);const h=k*LH+2*PAD;
+cs.forEach(c=>put({rect:[c.x,y,c.wd,h],fill:c.fill}));
+cs.forEach(c=>c.lines.slice(st,st+k).forEach((l,i)=>put({t:l.t,sz:10,b:c.b,x:c.x+PAD,y:y+PAD+9+i*LH,node:l.node,white:c.white})));
+y+=h;st+=k}});y+=14}
+H1("STUDENT ASSISTIVE TECHNOLOGY PLAN");
+const nv=v=>v||"Not provided";
+table(2,[["Student",nm],["Date of Birth",fmt(I.dob)],["School",I.school],["Case Manager",I.cm],["Date",fmt(I.date)],["IEP Meeting Date",fmt(I.iep)]].map(([a,b])=>({cells:[lab(a),{t:nv(b)}]})));
+const dr=[{hdr:true,cells:[{t:"Team Decision",span:true}]},{cells:[{t:DEC[S.dec],span:true}]}];
+if(S.dec=="3")dr.push({cells:[{t:DEC3,span:true,b:true}]});
+table(1,dr);
+if(S.dec!="1"){
+planTools().forEach((t,i)=>{const v=pl(t.n);
+table(2,[{hdr:true,cells:[{t:"AT Device or Tool #"+(i+1)},{t:(v.dn||t.n)+"  ("+t.a.join("; ")+")"}]}].concat(GROUPS.map(([g,title,items])=>{const G=v.g[g],out=[];
+items.forEach((it,j)=>{if(G.c[j]){const lb=Array.isArray(it)?it[0]:it,tx=(G.s[j]||"").trim();out.push(lb+(tx?": "+tx:""))}});
+if((G.o||"").trim())out.push("Other: "+G.o.trim());
+return{cells:[lab(title.replace("?","")),out.length?{list:out}:{t:"None selected"}]}})))});
+if((S.perc||"").trim())table(2,[{cells:[lab("Student's Perception of the Technology"),{t:S.perc}]}]);
+table(2,[{hdr:true,cells:[{t:"Plan Revisions: consider using the SETT form to reconsider needs",span:true}]},
+{cells:[lab("When moving to a new classroom"),{t:"Consider changes in tasks and environment. Perhaps new subjects or expectations will necessitate a need for new supports."}]},
+{cells:[lab("When moving to a new school"),{t:"Ensure that the IEP indicates clearly what is needed so that the new school is able to procure necessary devices."}]},
+{cells:[lab("When AT needs change"),{t:"If the student is no longer using the identified AT, be sure to reconsider needs and update the IEP."}]}]);
+table(2,[{hdr:true,cells:[{t:"Procedural Checks",span:true}]},{cells:[lab("Implementation Review Date"),{t:nv(fmt(S.rev))}]}].concat(CK.map((c,i)=>({cells:[lab(c),{t:(S.checks[i]?"Completed":"Not completed")+". Initials: "+(S.inits[i]||"not provided")}]}))).concat((S.notes||"").trim()?[{cells:[lab("Notes / Elaboration"),{t:S.notes}]}]:[]))}
+const np=pages.length,B={},eb=9+2*np,pt=pages.map(()=>[]),mc=pages.map(()=>0),pgN=p=>9+2*p,num=i=>i==0?6:eb+i-1;
+pages.forEach((items,p)=>items.forEach(o=>{if(o.node!=null){o.m=mc[p]++;pt[p][o.m]=num(o.node)}}));
+const fw=s=>{jd.setFont("helvetica","normal");jd.setFontSize(9);return jd.getTextWidth(s)};
+B[1]="<</Type/Catalog/Pages 2 0 R/Lang(en-US)/MarkInfo<</Marked true>>/StructTreeRoot 5 0 R/ViewerPreferences<</DisplayDocTitle true>>>>";
+B[2]=`<</Type/Pages/Kids[${pages.map((_,p)=>pgN(p)+" 0 R").join(" ")}]/Count ${np}>>`;
+B[3]="<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Encoding/WinAnsiEncoding>>";
+B[4]="<</Type/Font/Subtype/Type1/BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding>>";
+B[5]=`<</Type/StructTreeRoot/K 6 0 R/ParentTree 7 0 R/ParentTreeNextKey ${np}>>`;
+B[7]=`<</Nums[${pt.map((a,p)=>p+" ["+a.map(n=>n+" 0 R").join(" ")+"]").join(" ")}]>>`;
+B[8]=`<</Title(${pe(cl(title))})/Producer(Assistive Technology Consideration)>>`;
+const FILL={h:"0.184 0.373 0.702 rg",l:"0.918 0.937 0.969 rg"};
+pages.forEach((items,p)=>{const ft=`AT Plan - ${cl(nm)} - Page ${p+1} of ${np}`;
+const s=items.map(o=>o.rect?`/Artifact BMC q ${o.fill?FILL[o.fill]+" ":""}0.4 G 0.75 w ${o.rect[0]} ${(792-o.rect[1]-o.rect[3]).toFixed(2)} ${o.rect[2]} ${o.rect[3]} re ${o.fill?"B":"S"} Q EMC`:`/${nodes[o.node].tag} <</MCID ${o.m}>> BDC BT ${o.white?"1 g":"0 g"} /${o.b?"F2":"F1"} ${o.sz} Tf ${o.x} ${(792-o.y).toFixed(2)} Td (${pe(o.t)}) Tj ET EMC`).join("\n")+
+`\n/Artifact <</Type/Pagination/Subtype/Footer>> BDC BT 0.3 g /F1 9 Tf ${((612-fw(ft))/2).toFixed(1)} 30 Td (${pe(ft)}) Tj ET EMC`;
+B[pgN(p)]=`<</Type/Page/Parent 2 0 R/MediaBox[0 0 612 792]/Resources<</Font<</F1 3 0 R/F2 4 0 R>>>>/Contents ${pgN(p)+1} 0 R/StructParents ${p}/Tabs/S>>`;
+B[pgN(p)+1]=`<</Length ${s.length}>>\nstream\n${s}\nendstream`});
+nodes.forEach((n,i)=>{const kids=n.k.map(k=>k.n!=null?num(k.n)+" 0 R":`<</Type/MCR/Pg ${pgN(k.m.pg)} 0 R/MCID ${k.m.m}>>`).join(" ");
+B[num(i)]=`<</Type/StructElem/S/${n.tag}/P ${i==0?5:num(n.par)} 0 R${n.a||""}/K[${kids}]>>`});
+const N=eb+nodes.length-2;let out="%PDF-1.7\n%\xE2\xE3\xCF\xD3\n";const off=[];
+for(let n=1;n<=N;n++){off[n]=out.length;out+=`${n} 0 obj\n${B[n]}\nendobj\n`}
+const xr=out.length;out+=`xref\n0 ${N+1}\n0000000000 65535 f \n`+off.slice(1).map(o=>String(o).padStart(10,"0")+" 00000 n \n").join("")+`trailer\n<</Size ${N+1}/Root 1 0 R/Info 8 0 R>>\nstartxref\n${xr}\n%%EOF`;
+return Uint8Array.from(out,c=>c.charCodeAt(0)&255)}
+async function makePDF(){
+const msg=document.getElementById("msg");msg.textContent="";
+try{const nm=cl((S.info.student||"Student").trim());const bytes=buildPDF("Assistive Technology Plan - "+nm);
+const name="AT_Plan_"+nm.replace(/[^\w-]+/g,"_")+".pdf";
+let dl=null;try{dl=(typeof claude!=="undefined"&&claude.use)?await claude.use("downloads"):null}catch(e){}
+if(dl){await dl.save({filename:name,data:bytes})}else{const u=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
+app.innerHTML=`<h1>Your PDF is ready</h1><p class="sub" id="rtmsg">To protect student information, this page will reset in 10 seconds. Select "Keep this page open" to stop the automatic reset.</p><div class="bar"><button type="button" class="b s" id="keep">Keep this page open</button><button type="button" class="b s" id="again">Go back to plan</button><button type="button" class="b" id="new">Reset now</button></div>`;
+const stop=()=>clearTimeout(rt);rt=setTimeout(()=>init(true),10000);
+document.getElementById("keep").onclick=()=>{stop();document.getElementById("rtmsg").textContent="Automatic reset turned off. Your entries are still on this page. Select Reset now to clear them.";say("Automatic reset turned off.")};
+document.getElementById("new").onclick=()=>{stop();init(true)};document.getElementById("again").onclick=()=>{stop();step=S.dec=="1"?1:2;render(true)};focusH1();window.scrollTo(0,0)
+}catch(e){msg.textContent=e&&e.code=="declined"?"Save was cancelled. Select Save plan as PDF to try again.":"Could not create the PDF: "+(e.message||e)}}
+init(false);
+</script></body></html>
